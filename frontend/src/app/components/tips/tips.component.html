@@ -1,0 +1,10 @@
+<article class="message is-info" [ngClass]="{'fade-in-up': showTip, 'fade-out-down': !showTip}">
+    <div class="message-header has-icons-left">
+        <p> <span class="icon is-left">
+            <i class="fa fa-lightbulb-o"></i>
+        </span>{{ tips[currentTip].title }}</p>
+    </div>
+    <div class="message-body">
+        {{ tips[currentTip].description }}
+    </div>
+</article>

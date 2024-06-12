@@ -1,0 +1,21 @@
+<section class="section">
+    <div class="container">
+        <h1 class="title has-text-centered">Profile</h1>
+        <div class="box">
+            <h2 class="subtitle">Username: {{ userInfo.username }}</h2>
+        </div>
+        <div class="box">
+            <h2 class="subtitle">Email: {{ userInfo.email }}</h2>
+        </div>
+        <div class="box">
+            <h2 class="subtitle">Creation date: {{ userInfo.creationDate | date }}</h2>
+        </div>
+        <div class="box">
+            <h2 class="subtitle">Won games: {{ userInfo.gamesWon }}</h2>
+        </div>
+        <div class="box">
+            <h2 class="subtitle">Lost games: {{ userInfo.gamesLost }}</h2>
+        </div>
+        <button class="button is-danger" (click)="logout()">Logout</button>
+    </div>
+</section>

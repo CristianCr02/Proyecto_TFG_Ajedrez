@@ -1,0 +1,22 @@
+.moves-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 5px;
+}
+
+.move-square {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.white-move {
+    background-color: #f0f0f0;
+    color:#303030
+}
+
+.black-move {
+    background-color: #303030;
+    color: #fff;
+}

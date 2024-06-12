@@ -1,0 +1,58 @@
+@if (rivalUsername === '') {
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container has-text-centered is-inline">
+                <div class="block">
+                    <p class="has-text-centered waiting-text">Waiting for opponent...</p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="level">
+              <div class="level-item">
+                <app-tips></app-tips>
+              </div>
+            </div>
+          </div>
+    </section>
+}@else {
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container has-text-centered is-inline">
+                <p><span class="player {{ currentPlayer === player1 ? 'has-text-primary scale-up' : ''}}">{{ player1 }} </span>|
+                    <span class="other {{ currentPlayer === player2 ? 'has-text-primary scale-up' : ''}}">{{ player2 }}</span></p>
+                    <p>
+                        <span class="player {{ currentPlayer === player1 ? 'has-text-primary scale-up' : ''}}">
+                          {{ player1 }} ({{ player1Time | date:'mm:ss' }})
+                        </span>|
+                        <span class="other {{ currentPlayer === player2 ? 'has-text-primary scale-up' : ''}}">
+                          {{ player2 }} ({{ player2Time | date:'mm:ss' }})
+                        </span>
+                      </p>
+            </div>
+        </div>
+    </section>
+    
+    <div class="level is-flex justify-content-center">
+        <div class="level-item">
+            <app-board 
+                (pieceClicked)="pieceClicked($event)" 
+                [possibleMoves]="possibleMoves"
+                (pieceMoved)="movePiece($event)"
+                [pieceMovedExternally]="pieceMovedExternally"
+                [isRotated]="color === 'black'">
+            </app-board>
+        </div>
+    </div>
+
+    <div class="block">
+        @if (isModalActive()) {
+           <app-game-over [gameResult]="gameStatus" [moveHistory]="moves"></app-game-over>
+        }
+    </div>
+    
+    
+    
+    
+    
+}

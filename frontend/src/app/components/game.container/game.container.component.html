@@ -1,0 +1,14 @@
+@switch (gameType) {
+    @case ('singleplayer') {
+        <app-singleplayer></app-singleplayer>
+    }
+    @case ('normalTwoPlayers') {
+        <app-multiplayer></app-multiplayer>
+    }
+    @case ('fastTwoPlayers') {
+        <app-multiplayer></app-multiplayer>
+    }
+    @default {
+        <p>Error</p>
+    }
+}

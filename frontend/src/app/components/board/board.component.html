@@ -1,0 +1,12 @@
+<div class="chessboard" [style.transform]="isRotated ? 'rotate(180deg)' : 'none'">
+  <div *ngFor="let number of coordNumbers" class="row">
+    <div *ngFor="let letter of coordLetters" class="square" [ngClass]="{ 
+        'black-square': (coordLetters.indexOf(letter) + coordNumbers.indexOf(number)) % 2 !== 0 ,
+        'selected': canSelectSquare(number, letter) && selectedPiece?.number === number && selectedPiece?.letter === letter,
+        'possible-move': isPossibleMove(number, letter)}" (click)="onClickSquare(number, letter)">
+      <img *ngIf="getPieceAtPosition(number, letter).image != ''"
+        [src]="getPieceImage(getPieceAtPosition(number, letter))" alt="Piece" class="chess-piece"
+        [style.transform]="isRotated ? 'rotate(-180deg)' : 'none'">
+    </div>
+  </div>
+</div>

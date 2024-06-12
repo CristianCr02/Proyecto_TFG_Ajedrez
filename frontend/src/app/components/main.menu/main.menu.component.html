@@ -1,0 +1,39 @@
+<div class="section">
+  <div class="container">
+    <h1 class="title has-text-centered has-text-info is-size-1">Welcome, {{username}}!</h1>
+    <div class="columns is-mobile is-multiline is-centered">
+      <div class="column is-narrow m-5">
+        <button class="button is-primary is-large has-icons-left" (click)="newSinglePlayerGame()">
+          <span class="icon is-left">
+            <i class="fa fa-user"></i>
+          </span>
+          <span class="is-size-4">Singleplayer</span>
+        </button>
+      </div>
+      <div class="column is-narrow m-5">
+        <button class="button is-info is-large has-icons-left" (click)="newNormalGame()">
+          <span class="icon is-left">
+            <i class="fa fa-users"></i>
+          </span>
+          <span class="is-size-4">Normal game</span>
+        </button>
+      </div>
+      <div class="column is-narrow m-5">
+        <button class="button is-warning is-large has-icons-left" (click)="newFastGame()">
+          <span class="icon is-left">
+            <i class="fa fa-hourglass"></i>
+          </span>
+          <span class="is-size-4">Fast game</span>
+        </button>
+      </div>
+      <div class="column is-narrow m-5">
+        <button class="button is-success is-large has-icons-left" (click)="profile()">
+          <span class="icon is-left">
+            <i class="fa fa-user-circle"></i>
+          </span>
+          <span class="is-size-4">Profile</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

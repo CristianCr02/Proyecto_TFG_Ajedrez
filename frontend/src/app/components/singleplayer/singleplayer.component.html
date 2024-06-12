@@ -1,0 +1,36 @@
+<section class="hero">
+    <div class="hero-body">
+        <div class="container has-text-centered is-inline">
+            <p><span class="player {{ turn === true ? 'has-text-primary' : ''}}">{{ username }} </span>|
+                <span class="other {{turn === false ? 'has-text-primary' : ''}}">Bot</span></p>
+        </div>
+    </div>
+</section>
+
+<div class="level is-flex justify-content-center">
+    <div class="level-item">
+        <app-board 
+            (pieceClicked)="pieceClicked($event)" 
+            [possibleMoves]="possibleMoves"
+            (pieceMoved)="movePiece($event)"
+            [pieceMovedExternally]="pieceMovedExternally"
+            [piecePromoted]="promotePiece"
+            (playerPromotePawn)="promotePlayerPawn($event)">
+        </app-board>
+    </div>
+</div>
+
+<div class="block">
+    @if (promotionModalActive) {
+        <app-promotion-modal [triggerModal]="promotionModalActive"
+                             (promotionSelected)="onPromotionSelected($event)">
+        </app-promotion-modal>
+    
+    }
+</div>
+
+<div class="block">
+    @if (isModalActive()) {
+       <app-game-over [gameResult]="gameStatus" [moveHistory]="moves"></app-game-over>
+    }
+</div>

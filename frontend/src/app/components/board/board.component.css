@@ -1,0 +1,33 @@
+/* chessboard.component.css */
+.chessboard {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .row {
+    display: flex;
+  }
+  
+  .square {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #333;
+    background-color: #ca9f6c;
+  }
+  
+  .black-square {
+    background-color: #7a3223;
+  }
+  
+  .selected {
+      background-color: #3c7dff; /* Resalta la casilla seleccionada en azul */
+    }
+    
+    .possible-move {
+      background-color: #7eff3c; /* Resalta los posibles movimientos en verde */
+    }
+
+  
