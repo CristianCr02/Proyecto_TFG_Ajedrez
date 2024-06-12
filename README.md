@@ -1,4 +1,4 @@
-Introducción
+*Introducción*
 Este proyecto es una aplicación web de ajedrez multijugador que permite a los usuarios jugar partidas en tiempo real. La aplicación utiliza WebSockets para la comunicación en tiempo real y proporciona funcionalidades como emparejamiento de jugadores, control de tiempo y promoción de piezas. Este documento describe la arquitectura, las funcionalidades implementadas y las futuras líneas de desarrollo del proyecto.
 
 Arquitectura del Proyecto
