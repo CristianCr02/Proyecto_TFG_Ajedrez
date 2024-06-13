@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const db = 'mongodb://localhost:27017/chessBackend';
-
+const db = process.env.MONGO_URL || 'mongodb://localhost:27017/chessBackend';
+console.log(db);
 mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true});
 
 mongoose.connection.on('connected', function() {

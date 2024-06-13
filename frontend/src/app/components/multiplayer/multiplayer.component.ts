@@ -118,7 +118,7 @@ export class MultiplayerComponent implements OnDestroy, OnInit {
   }
 
   handleGameOver(gameOvermsg: { type: string, status: string, winner: string, loser: string}) {
-    this.gameStatus = gameOvermsg.winner === this.username ? 'You win!' : 'You loose!';
+    this.gameStatus = gameOvermsg.winner === this.username ? 'You win!' : 'You lose!';
     this.gameOver(this.gameStatus);
   }
 

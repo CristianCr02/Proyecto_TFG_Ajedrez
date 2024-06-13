@@ -48,7 +48,6 @@ export class BoardComponent {
     // The board is rotated if the player is black
     @Input() isRotated: boolean = false;
 
-    @Output() playerPromotePawn: EventEmitter<PieceCoord> = new EventEmitter<PieceCoord>();
 
   coordLetters: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
   coordNumbers: number[] = [8, 7, 6, 5, 4, 3, 2, 1];
@@ -117,13 +116,6 @@ export class BoardComponent {
     if (this.selectedPiece && this.isPossibleMove(number, letter)) {
       const destination = { number, letter };
 
-      if (this.isPawnAtTheEnd(destination)) {
-        window.alert("pasan cosas");
-        this.playerPromotePawn.emit(destination);
-        // pasan cosas
-        return;
-      }
-
       this.pieceMoved.emit([this.selectedPiece, destination]); // Emit the move to the parent component who handles the move in the api
       this.movePieceInBoard(this.selectedPiece, destination); // Move the piece in the board (only frontend)
       return;
@@ -188,16 +180,6 @@ export class BoardComponent {
    */
   canSelectSquare(number: number, letter: string): boolean {
     return this.getPieceAtPosition(number, letter) !== this.empty;
-  }
-
-  /**
-   * Checks if a pawn is at the end of the board and needs to be promoted
-   * @param coord 
-   * @returns 
-   */
-  isPawnAtTheEnd(coord: PieceCoord): boolean {
-    const piece: Piece = this.getPieceAtPosition(coord.number, coord.letter);
-    return piece.type === PieceType.Pawn && (coord.number === 1 || coord.number === 8);
   }
 
 }

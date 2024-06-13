@@ -15,18 +15,9 @@
             (pieceMoved)="movePiece($event)"
             [pieceMovedExternally]="pieceMovedExternally"
             [piecePromoted]="promotePiece"
-            (playerPromotePawn)="promotePlayerPawn($event)">
+            >
         </app-board>
     </div>
-</div>
-
-<div class="block">
-    @if (promotionModalActive) {
-        <app-promotion-modal [triggerModal]="promotionModalActive"
-                             (promotionSelected)="onPromotionSelected($event)">
-        </app-promotion-modal>
-    
-    }
 </div>
 
 <div class="block">

@@ -313,11 +313,12 @@ exports.moveAI = function (req, res) {
 
             var chess = new Chess(currentGame.chess);
             var movesArr = currentGame.chess_moves;
-
+		console.log(movesArr);
             if (chess != null) {
                 var move = chessAi.play(movesArr);
                 var makeMove = chess.move(move);
-
+		console.log(move);
+		 console.log(makeMove);
                 if (makeMove != null) {
 
                     var from = makeMove.from;

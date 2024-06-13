@@ -5,32 +5,27 @@ import { PieceCoord } from '../../model/types';
 import { LogsComponent } from '../logs/logs.component';
 import { GameOverComponent } from '../game-over/game-over.component';
 import { PieceType } from '../../../models/chessPieces';
-import { PromotionModalComponent } from '../promotion-modal/promotion-modal.component';
 import { Piece } from '../../model/piece';
 import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-singleplayer',
   standalone: true,
-  imports: [BoardComponent, LogsComponent, GameOverComponent, PromotionModalComponent],
+  imports: [BoardComponent, LogsComponent, GameOverComponent],
   templateUrl: './singleplayer.component.html',
   styleUrl: './singleplayer.component.css'
 })
 export class SingleplayerComponent implements OnInit {
   @Input() selectedPiece: PieceCoord | null = null;
   @Output() pieceMovedExternally: PieceCoord[] | null = null;
-  @ViewChild(PromotionModalComponent) promotionModal!: PromotionModalComponent;
   possibleMoves: string[] | null = null;
   username: string = localStorage.getItem('username') ?? '';
   turn: boolean = true;
   game_id: string = '';
   gameStatus: string = '';
   modalActive: boolean = false;
-  promotionModalActive: boolean = false;
   moves: string[] = [];
   promotePiece: { coord: PieceCoord, newType: PieceType } | null = null;
-  selectedPromotionPiece: PieceType = PieceType.Empty;
-  selectedCoordsPromotionPiece: PieceCoord = { number: 0, letter: '' };
 
   constructor(private gameService: GameService, private userService: UserService) { }
 
@@ -65,27 +60,13 @@ export class SingleplayerComponent implements OnInit {
    * @returns void
    */
   movePiece(pieceCoords: PieceCoord[]): void {
-    if (this.promotionModalActive) {
-      return;
-    }
-    if (this.selectedPromotionPiece != PieceType.Empty) {
-      this.gameService.movePieceByPlayerWithPromotion(this.game_id, pieceCoords[0], pieceCoords[1], this.selectedPromotionPiece).subscribe(() => {
+     this.gameService.movePieceByPlayer(this.game_id, pieceCoords[0], pieceCoords[1]).subscribe(() => {
         this.turn = false;
         this.selectedPiece = null;
         this.checkCheckMate();
         this.movePieceByBot();
       });
-    } else {
-      this.gameService.movePieceByPlayer(this.game_id, pieceCoords[0], pieceCoords[1]).subscribe(() => {
-        this.turn = false;
-        this.selectedPiece = null;
-        this.checkCheckMate();
-        this.movePieceByBot();
-      }
-      );
     }
-    
-  }
 
 
   /**
@@ -182,21 +163,5 @@ export class SingleplayerComponent implements OnInit {
     return match !== null ? match[1] : '';
   }
 
-  promotePlayerPawn(coords: {number: number, letter: string}): Promise<string> {
-    return new Promise(resolve => {
-      this.promotionModalActive = true;
-      this.selectedCoordsPromotionPiece = { number: coords.number, letter: coords.letter };
-      const subscription = this.promotionModal.promotionSelected.subscribe((type: PieceType) => {
-        this.promotionModalActive = false;
-        resolve(type.toString());
-        subscription.unsubscribe();
-      });
-    })
-  }
-
-  onPromotionSelected(type: PieceType): void {
-    this.selectedPromotionPiece = type;
-    this.promotionModalActive = false;
-  }
 
 }

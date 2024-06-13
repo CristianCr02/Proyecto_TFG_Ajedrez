@@ -5,7 +5,7 @@ import { HttpRequest, HttpHandlerFn, HttpEvent } from '@angular/common/http';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { apiURL } from './model/config'
+import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), provideHttpClient(
@@ -15,7 +15,7 @@ export const appConfig: ApplicationConfig = {
 
       
 export function interceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-  if (req.url.includes(apiURL)) {
+  if (req.url.includes(environment.API_URL)) {
     return next(req);
   }
   const token = localStorage.getItem('token') ?? '';

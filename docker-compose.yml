@@ -1,0 +1,33 @@
+services:
+  frontend:
+    build: ./frontend
+    ports: 
+      - "80:4200"
+    environment:
+      WS_URL: ws://92.222.177.39:4000/api/ws
+      BACKEND_URL: http://92.222.177.39:4000/api
+  backend:
+    build: ./backend
+    ports: 
+      - "4000:4000"
+    environment:
+      MONGO_URL: mongodb://mongo:27017/chessBackend
+      API_URL: http://api:3000/api/v1/chess
+    depends_on:
+      - mongo
+  api:
+    build: ./chess-api-master
+    ports: 
+      - "3000:3000"
+    environment:
+      MONGO_URL: mongodb://mongo:27017
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+volumes:
+  mongo-data:

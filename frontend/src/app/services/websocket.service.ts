@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
-
+import { environment } from '../../environments/environment';
 import { webSocket} from 'rxjs/webSocket'
-import { backendURL } from '../model/config';
 import { PieceCoord } from '../model/types';
 interface Response {
   type: string;
@@ -15,8 +14,9 @@ interface Response {
 export class WebsocketService {
   private socket$;
 
-  constructor() { 
-   this.socket$ = webSocket('ws://localhost:4000/api' + '/ws');
+  constructor() {
+  const wsUrl = environment.WS_URL;
+   this.socket$ = webSocket(wsUrl);
    this.socket$.subscribe(
     msg => console.log('Server message: ', msg),
     err => console.error('Connection error: ', err),
