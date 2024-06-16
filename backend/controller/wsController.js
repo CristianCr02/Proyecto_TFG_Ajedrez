@@ -217,7 +217,7 @@ const verifyState = async (game_id) => {
         const response = await axios.post(apiUrl + '/two/check', {game_id});
         return response;
     } catch (error) {
-        console.log('Error response from API');
+        console.log('Error response from API: ', error);
         return null;
     }
 }

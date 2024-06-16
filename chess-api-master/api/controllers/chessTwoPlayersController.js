@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose');
 var chessAi = require('chess-ai-kong');
-var Chess = require('chess.js').Chess;
+var Chess = require('../../forked_chess').Chess;
 // var chess = null;
 
 var ChessGame = mongoose.model('Chess');

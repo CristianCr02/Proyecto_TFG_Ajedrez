@@ -4,10 +4,8 @@ COPY package*.json /app
 
 
 RUN npm install
-
+RUN npm install -g pm2
 COPY . /app
-
-
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["pm2-runtime", "start", "index.js"]

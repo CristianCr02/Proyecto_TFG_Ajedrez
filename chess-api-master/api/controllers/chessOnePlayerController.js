@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose');
 var chessAi = require('chess-ai-kong');
-var Chess = require('chess.js').Chess;
+var Chess = require('../../forked_chess').Chess;
 // var chess = null;
 
 var ChessGame = mongoose.model('Chess');
@@ -313,12 +313,13 @@ exports.moveAI = function (req, res) {
 
             var chess = new Chess(currentGame.chess);
             var movesArr = currentGame.chess_moves;
-		console.log(movesArr);
+	
             if (chess != null) {
                 var move = chessAi.play(movesArr);
                 var makeMove = chess.move(move);
-		console.log(move);
-		 console.log(makeMove);
+                if (!makeMove && (move === 'O-O' || move === 'O-O-O')) {
+                    makeMove = chess.move(move === 'O-O-O' ? 'O-O' : 'O-O-O');
+                }
                 if (makeMove != null) {
 
                     var from = makeMove.from;

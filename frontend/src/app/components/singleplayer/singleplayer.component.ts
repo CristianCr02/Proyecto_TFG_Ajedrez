@@ -26,7 +26,7 @@ export class SingleplayerComponent implements OnInit {
   modalActive: boolean = false;
   moves: string[] = [];
   promotePiece: { coord: PieceCoord, newType: PieceType } | null = null;
-
+  @ViewChild(BoardComponent, {static: false}) board!: BoardComponent;
   constructor(private gameService: GameService, private userService: UserService) { }
 
   ngOnInit(): void {
@@ -81,6 +81,30 @@ export class SingleplayerComponent implements OnInit {
     setTimeout(() => {
       this.gameService.movePieceByBot(this.game_id).subscribe((response) => {
         this.turn = true;
+        
+        // CHECK IF AI DONE CASTLING BEFORE DOING ANY MOVE 
+        if (this.aiDoneCastling(response.san)) {
+          const kingPos: PieceCoord = { number: response.from.charAt(1), letter: response.from.charAt(0) };
+          let kingDst: PieceCoord;
+          let rookPos: PieceCoord;
+          let rookDst: PieceCoord;          
+          // KINGSIDE CASTLING
+          if (response.san === 'O-O') {
+            rookPos = { number: kingPos.number, letter: String.fromCharCode(kingPos.letter.charCodeAt(0) + 3) };
+            rookDst = { number: rookPos.number, letter: 'f'};
+            kingDst = { number: kingPos.number, letter: 'g'};
+          } else {
+            rookPos = { number: kingPos.number, letter: 'a' };
+            rookDst = { number: kingPos.number, letter: 'd'};
+            kingDst = { number: kingPos.number, letter: 'c'};  
+          }
+          this.board.movePieceInBoard(kingPos, kingDst);
+          this.board.movePieceInBoard(rookPos, rookDst);
+          this.checkCheckMate();
+          return;
+        }
+        // -----------------------------------------------
+        
         const src: PieceCoord = { number: response.from.charAt(1), letter: response.from.charAt(0) };
         const dst: PieceCoord = { number: response.to.charAt(1), letter: response.to.charAt(0) };
         this.pieceMovedExternally = [src, dst];
@@ -161,6 +185,15 @@ export class SingleplayerComponent implements OnInit {
     const regex: RegExp = new RegExp(/=(Q|R|B|N|q|r|b|n)/);
     const match = san.match(regex);
     return match !== null ? match[1] : '';
+  }
+
+  /**
+   * Determines if a AI done castling (kingside or queenside).
+   * @param san - The Standard Algebraic Notation (SAN) of the move.
+   * @returns true if AI done castling
+   */
+  aiDoneCastling(san: string): boolean {
+    return san === 'O-O' || san === 'O-O-O';
   }
 
 

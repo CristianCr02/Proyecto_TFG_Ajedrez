@@ -102,7 +102,6 @@ export class BoardComponent {
     this.board[src.number - 1][srcIndex] = this.empty;
     this.selectedPiece = null;
     this.possibleMoves = null;
-
   }
 
   /**
